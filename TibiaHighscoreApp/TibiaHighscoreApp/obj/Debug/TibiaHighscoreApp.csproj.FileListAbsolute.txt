@@ -2,11 +2,9 @@ C:\Users\TimoD\source\repos\TibiaHighscoreApp\TibiaHighscoreApp\bin\Debug\TibiaH
 C:\Users\TimoD\source\repos\TibiaHighscoreApp\TibiaHighscoreApp\bin\Debug\TibiaHighscoreApp.exe
 C:\Users\TimoD\source\repos\TibiaHighscoreApp\TibiaHighscoreApp\bin\Debug\TibiaHighscoreApp.pdb
 C:\Users\TimoD\source\repos\TibiaHighscoreApp\TibiaHighscoreApp\bin\Debug\HtmlAgilityPack.dll
-C:\Users\TimoD\source\repos\TibiaHighscoreApp\TibiaHighscoreApp\bin\Debug\log4net.dll
 C:\Users\TimoD\source\repos\TibiaHighscoreApp\TibiaHighscoreApp\bin\Debug\PresentationFramework.dll
 C:\Users\TimoD\source\repos\TibiaHighscoreApp\TibiaHighscoreApp\bin\Debug\HtmlAgilityPack.pdb
 C:\Users\TimoD\source\repos\TibiaHighscoreApp\TibiaHighscoreApp\bin\Debug\HtmlAgilityPack.xml
-C:\Users\TimoD\source\repos\TibiaHighscoreApp\TibiaHighscoreApp\bin\Debug\log4net.xml
 C:\Users\TimoD\source\repos\TibiaHighscoreApp\TibiaHighscoreApp\obj\Debug\TibiaHighscoreApp.csprojResolveAssemblyReference.cache
 C:\Users\TimoD\source\repos\TibiaHighscoreApp\TibiaHighscoreApp\obj\Debug\TibiaHighscoreApp.Properties.Resources.resources
 C:\Users\TimoD\source\repos\TibiaHighscoreApp\TibiaHighscoreApp\obj\Debug\TibiaHighscoreApp.TibiaHighscoreMainWindow.resources
