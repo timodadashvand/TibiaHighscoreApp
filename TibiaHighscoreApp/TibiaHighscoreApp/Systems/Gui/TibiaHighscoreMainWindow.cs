@@ -73,6 +73,7 @@ namespace TibiaHighscoreApp
             if (CheckIfLBLoaded())
             {
                 CheckTopPlayersWindowDisposed();
+                cbWorlds.SelectedIndex = -1;
                 LoadTopPlayers();
             }
         }
@@ -100,7 +101,7 @@ namespace TibiaHighscoreApp
             CheckTopPlayersWindowDisposed();
             var firstValue = lbMainWindow.SelectedItem.ToString().Substring(0, lbMainWindow.SelectedItem.ToString().IndexOf(":")).TrimEnd();
             var player = lbMainWindow.SelectedItem.ToString().Substring(lbMainWindow.SelectedItem.ToString().IndexOf(":") + 1).TrimStart();
-            if (firstValue.All(char.IsDigit))
+            if (firstValue.Any(char.IsDigit))
             {
                 SearchPlayer(player);
             }
@@ -184,22 +185,20 @@ namespace TibiaHighscoreApp
 
         private void BtnShowWorld_Click(object sender, EventArgs e)
         {
-            if (!(cbWorlds.Text == ""))
+            if (!(cbWorlds.Text == "") && !(cbWorlds.Text == null))
             {
-                if (CheckIfLBLoaded())
+                lbMainWindow.Items.Clear();
+                var res = new HttpWebService(_urlTopPlayers + cbWorlds.Text);
+                var temp = res.getNodes("//table[contains(@class, 'TableContent')]");
+                foreach (var node in temp.Nodes())
                 {
-                    var res = new HttpWebService(_urlTopPlayers + cbWorlds.Text);
-                    var temp = res.getNodes("//table[contains(@class, 'TableContent')]");
-                    foreach (var node in temp.Nodes())
+                    if (node.InnerHtml.Contains("https://secure.tibia.com/community/?subtopic=characters&name="))
                     {
-                        if (node.InnerHtml.Contains("https://secure.tibia.com/community/?subtopic=characters&name="))
+                        var item = new ListBoxItem
                         {
-                            var item = new ListBoxItem
-                            {
-                                Content = node.ChildNodes[3].InnerText + ": " + node.ChildNodes[1].InnerText
-                            };
-                            lbMainWindow.Items.Add(item.Content);
-                        }
+                            Content = node.ChildNodes[0].InnerText + ". [" + node.ChildNodes[3].InnerText + "]: " + node.ChildNodes[1].InnerText
+                        };
+                        lbMainWindow.Items.Add(item.Content);
                     }
                 }
             }
