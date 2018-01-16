@@ -88,7 +88,6 @@ namespace TibiaHighscoreApp
         {
             var res = new HttpWebService(_urlGetWorldHighscore + world);
             this.Text = "Top Players - " + world;
-            //var temp = res.getNodes("//a[contains(@href, 'https://secure.tibia.com/community/?subtopic=characters&name=')]");
             var temp = res.getNodes("//table[contains(@class, 'TableContent')]");
             foreach (var node in temp.Nodes())
             {

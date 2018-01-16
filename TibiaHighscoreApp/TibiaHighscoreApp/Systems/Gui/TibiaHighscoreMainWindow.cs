@@ -1,6 +1,7 @@
 ﻿using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Forms;
 
@@ -19,12 +20,17 @@ namespace TibiaHighscoreApp
         {
             InitializeComponent();
             CheckTopPlayersWindowDisposed();
+            LoadWorlds();
         }
 
-        private void TibiaHighscoreMainWindow_Load(object sender, EventArgs e)
+        private void LoadWorlds()
         {
             var res = new HttpWebService(_urlWorlds);
             _worlds = res.getNodes("//a[contains(@href, 'https://secure.tibia.com/community/?subtopic=worlds&world=')]");
+            foreach (var node in _worlds)
+            {
+                cbWorlds.Items.Add(node.InnerText);
+            }
         }
 
         private void CheckTopPlayersWindowDisposed()
@@ -92,10 +98,18 @@ namespace TibiaHighscoreApp
         private void LbMainWindow_MouseDoubleClick(object sender, EventArgs e)
         {
             CheckTopPlayersWindowDisposed();
+            var firstValue = lbMainWindow.SelectedItem.ToString().Substring(0, lbMainWindow.SelectedItem.ToString().IndexOf(":")).TrimEnd();
             var player = lbMainWindow.SelectedItem.ToString().Substring(lbMainWindow.SelectedItem.ToString().IndexOf(":") + 1).TrimStart();
-            var world = lbMainWindow.SelectedItem.ToString().Substring(0, lbMainWindow.SelectedItem.ToString().IndexOf(":")).TrimEnd();
-            _topPlayersWindow.LoadWorldHighscore(world, player);
-            _topPlayersWindow.Show();
+            if (firstValue.All(char.IsDigit))
+            {
+                SearchPlayer(player);
+            }
+            else
+            {
+                var world = firstValue;
+                _topPlayersWindow.LoadWorldHighscore(world, player);
+                _topPlayersWindow.Show();
+            }
         }
 
         private void LoadListBox(Dictionary<HtmlNode, HtmlNode> list)
@@ -165,6 +179,29 @@ namespace TibiaHighscoreApp
             if ((e.KeyChar == (char)13) && (!tbPlayerSearch.Text.Equals("")))
             {
                 SearchPlayer(tbPlayerSearch.Text);
+            }
+        }
+
+        private void BtnShowWorld_Click(object sender, EventArgs e)
+        {
+            if (!(cbWorlds.Text == ""))
+            {
+                if (CheckIfLBLoaded())
+                {
+                    var res = new HttpWebService(_urlTopPlayers + cbWorlds.Text);
+                    var temp = res.getNodes("//table[contains(@class, 'TableContent')]");
+                    foreach (var node in temp.Nodes())
+                    {
+                        if (node.InnerHtml.Contains("https://secure.tibia.com/community/?subtopic=characters&name="))
+                        {
+                            var item = new ListBoxItem
+                            {
+                                Content = node.ChildNodes[3].InnerText + ": " + node.ChildNodes[1].InnerText
+                            };
+                            lbMainWindow.Items.Add(item.Content);
+                        }
+                    }
+                }
             }
         }
     }
