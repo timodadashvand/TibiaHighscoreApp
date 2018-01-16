@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TibiaHighscoreTopPlayersWindow));
             this.lbTopPlayers = new System.Windows.Forms.ListBox();
             this.tlPanel = new System.Windows.Forms.TableLayoutPanel();
             this.lblAccountStatus = new System.Windows.Forms.Label();
@@ -372,6 +373,7 @@
             this.ClientSize = new System.Drawing.Size(514, 285);
             this.Controls.Add(this.gbCharacterInfo);
             this.Controls.Add(this.lbTopPlayers);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TibiaHighscoreTopPlayersWindow";
             this.Text = "Top Players";
             this.Load += new System.EventHandler(this.TibiaHighscoreTopPlayers_Load);
