@@ -150,7 +150,7 @@ namespace TibiaHighscoreApp
                 var res = new HttpWebService(_urlPlayerSearch + player);
                 var boxContent = res.getNode("//div[contains(@class, 'BoxContent')]/table[1]");
                 string name = "";
-                if (boxContent.InnerText.Contains("Could not find character"))
+                if (boxContent.ChildNodes[1].InnerText.Contains("Could not find character"))
                 {
                     MessageBox.Show(
                         "No character with name: " +
