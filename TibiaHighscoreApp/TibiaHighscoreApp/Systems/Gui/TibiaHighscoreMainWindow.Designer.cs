@@ -35,10 +35,12 @@
             this.tbPlayerSearch = new System.Windows.Forms.TextBox();
             this.gbCharacterSearch = new System.Windows.Forms.GroupBox();
             this.gpTopPlayers = new System.Windows.Forms.GroupBox();
+            this.gbResult = new System.Windows.Forms.GroupBox();
             this.btnShowWorld = new System.Windows.Forms.Button();
             this.cbWorlds = new System.Windows.Forms.ComboBox();
             this.gbCharacterSearch.SuspendLayout();
             this.gpTopPlayers.SuspendLayout();
+            this.gbResult.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnTopPlayers
@@ -64,9 +66,9 @@
             // lbMainWindow
             // 
             this.lbMainWindow.FormattingEnabled = true;
-            this.lbMainWindow.Location = new System.Drawing.Point(7, 76);
+            this.lbMainWindow.Location = new System.Drawing.Point(6, 19);
             this.lbMainWindow.Name = "lbMainWindow";
-            this.lbMainWindow.Size = new System.Drawing.Size(242, 225);
+            this.lbMainWindow.Size = new System.Drawing.Size(230, 212);
             this.lbMainWindow.TabIndex = 3;
             this.lbMainWindow.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.LbMainWindow_MouseDoubleClick);
             // 
@@ -82,7 +84,7 @@
             // 
             this.gbCharacterSearch.Controls.Add(this.tbPlayerSearch);
             this.gbCharacterSearch.Controls.Add(this.btnPlayerSearch);
-            this.gbCharacterSearch.Location = new System.Drawing.Point(12, 12);
+            this.gbCharacterSearch.Location = new System.Drawing.Point(0, 0);
             this.gbCharacterSearch.Name = "gbCharacterSearch";
             this.gbCharacterSearch.Size = new System.Drawing.Size(254, 47);
             this.gbCharacterSearch.TabIndex = 5;
@@ -91,16 +93,26 @@
             // 
             // gpTopPlayers
             // 
+            this.gpTopPlayers.Controls.Add(this.gbResult);
             this.gpTopPlayers.Controls.Add(this.btnShowWorld);
             this.gpTopPlayers.Controls.Add(this.cbWorlds);
             this.gpTopPlayers.Controls.Add(this.btnTopPlayers);
-            this.gpTopPlayers.Controls.Add(this.lbMainWindow);
-            this.gpTopPlayers.Location = new System.Drawing.Point(12, 65);
+            this.gpTopPlayers.Location = new System.Drawing.Point(0, 53);
             this.gpTopPlayers.Name = "gpTopPlayers";
-            this.gpTopPlayers.Size = new System.Drawing.Size(255, 308);
+            this.gpTopPlayers.Size = new System.Drawing.Size(255, 323);
             this.gpTopPlayers.TabIndex = 6;
             this.gpTopPlayers.TabStop = false;
             this.gpTopPlayers.Text = "Highscore";
+            // 
+            // gbResult
+            // 
+            this.gbResult.Controls.Add(this.lbMainWindow);
+            this.gbResult.Location = new System.Drawing.Point(6, 78);
+            this.gbResult.Name = "gbResult";
+            this.gbResult.Size = new System.Drawing.Size(242, 238);
+            this.gbResult.TabIndex = 7;
+            this.gbResult.TabStop = false;
+            this.gbResult.Text = "Result";
             // 
             // btnShowWorld
             // 
@@ -126,7 +138,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(286, 381);
+            this.ClientSize = new System.Drawing.Size(252, 373);
             this.Controls.Add(this.gpTopPlayers);
             this.Controls.Add(this.gbCharacterSearch);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -135,6 +147,7 @@
             this.gbCharacterSearch.ResumeLayout(false);
             this.gbCharacterSearch.PerformLayout();
             this.gpTopPlayers.ResumeLayout(false);
+            this.gbResult.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -148,6 +161,7 @@
         private System.Windows.Forms.GroupBox gpTopPlayers;
         private System.Windows.Forms.Button btnShowWorld;
         private System.Windows.Forms.ComboBox cbWorlds;
+        private System.Windows.Forms.GroupBox gbResult;
     }
 }
 

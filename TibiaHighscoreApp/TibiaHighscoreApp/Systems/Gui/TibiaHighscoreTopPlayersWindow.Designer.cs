@@ -56,16 +56,18 @@
             this.lblNameVar = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.gbCharacterInfo = new System.Windows.Forms.GroupBox();
+            this.gbOtherCharacters = new System.Windows.Forms.GroupBox();
             this.tlPanel.SuspendLayout();
             this.gbCharacterInfo.SuspendLayout();
+            this.gbOtherCharacters.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbTopPlayers
             // 
             this.lbTopPlayers.FormattingEnabled = true;
-            this.lbTopPlayers.Location = new System.Drawing.Point(12, 12);
+            this.lbTopPlayers.Location = new System.Drawing.Point(6, 19);
             this.lbTopPlayers.Name = "lbTopPlayers";
-            this.lbTopPlayers.Size = new System.Drawing.Size(150, 264);
+            this.lbTopPlayers.Size = new System.Drawing.Size(150, 238);
             this.lbTopPlayers.TabIndex = 0;
             this.lbTopPlayers.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.LbTopPlayers_MouseDoubleClick);
             // 
@@ -359,26 +361,37 @@
             // gbCharacterInfo
             // 
             this.gbCharacterInfo.Controls.Add(this.tlPanel);
-            this.gbCharacterInfo.Location = new System.Drawing.Point(168, 8);
+            this.gbCharacterInfo.Location = new System.Drawing.Point(174, 8);
             this.gbCharacterInfo.Name = "gbCharacterInfo";
             this.gbCharacterInfo.Size = new System.Drawing.Size(334, 268);
             this.gbCharacterInfo.TabIndex = 2;
             this.gbCharacterInfo.TabStop = false;
             this.gbCharacterInfo.Text = "Character information";
             // 
+            // gbOtherCharacters
+            // 
+            this.gbOtherCharacters.Controls.Add(this.lbTopPlayers);
+            this.gbOtherCharacters.Location = new System.Drawing.Point(6, 8);
+            this.gbOtherCharacters.Name = "gbOtherCharacters";
+            this.gbOtherCharacters.Size = new System.Drawing.Size(162, 268);
+            this.gbOtherCharacters.TabIndex = 3;
+            this.gbOtherCharacters.TabStop = false;
+            this.gbOtherCharacters.Text = "Other characters";
+            // 
             // TibiaHighscoreTopPlayersWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(514, 285);
+            this.ClientSize = new System.Drawing.Size(516, 285);
+            this.Controls.Add(this.gbOtherCharacters);
             this.Controls.Add(this.gbCharacterInfo);
-            this.Controls.Add(this.lbTopPlayers);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TibiaHighscoreTopPlayersWindow";
             this.Text = "Top Players";
             this.Load += new System.EventHandler(this.TibiaHighscoreTopPlayers_Load);
             this.tlPanel.ResumeLayout(false);
             this.gbCharacterInfo.ResumeLayout(false);
+            this.gbOtherCharacters.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -412,5 +425,6 @@
         private System.Windows.Forms.Label lblAccountStatus;
         private System.Windows.Forms.Label lblAccountStatusVar;
         private System.Windows.Forms.GroupBox gbCharacterInfo;
+        private System.Windows.Forms.GroupBox gbOtherCharacters;
     }
 }

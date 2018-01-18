@@ -12,6 +12,8 @@ namespace TibiaHighscoreApp
         private readonly string _urlWorlds = "http://www.tibia.com/community/?subtopic=worlds";
         private readonly string _urlTopPlayers = "https://secure.tibia.com/community/?subtopic=highscores&world=";
         private readonly string _urlPlayerSearch = "https://secure.tibia.com/community/?subtopic=characters&name=";
+        private readonly string _gbDisplayAllTopPlayers = "All top players";
+        private readonly string _gbDisplayWorldTopPlayers = "World highscore: ";
         private HtmlNodeCollection _worlds;
         private TibiaHighscoreTopPlayersWindow _topPlayersWindow;
 
@@ -74,6 +76,7 @@ namespace TibiaHighscoreApp
             {
                 CheckTopPlayersWindowDisposed();
                 cbWorlds.SelectedIndex = -1;
+                gbResult.Text = _gbDisplayAllTopPlayers;
                 LoadTopPlayers();
             }
         }
@@ -188,6 +191,7 @@ namespace TibiaHighscoreApp
             if (!(cbWorlds.Text == "") && !(cbWorlds.Text == null))
             {
                 lbMainWindow.Items.Clear();
+                gbResult.Text = _gbDisplayWorldTopPlayers + cbWorlds.Text;
                 var res = new HttpWebService(_urlTopPlayers + cbWorlds.Text);
                 var temp = res.getNodes("//table[contains(@class, 'TableContent')]");
                 foreach (var node in temp.Nodes())
