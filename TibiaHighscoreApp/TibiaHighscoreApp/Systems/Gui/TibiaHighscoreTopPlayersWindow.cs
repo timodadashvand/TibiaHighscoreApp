@@ -1,6 +1,5 @@
 ﻿using HtmlAgilityPack;
 using System;
-using System.Net;
 using System.Windows.Controls;
 using System.Windows.Forms;
 
@@ -10,6 +9,7 @@ namespace TibiaHighscoreApp
     {
         private readonly string _urlGetCharacter = "https://secure.tibia.com/community/?subtopic=characters&name=";
         private readonly string _urlGetWorldHighscore = "https://secure.tibia.com/community/?subtopic=highscores&world=";
+        private HttpWebService _webService = new HttpWebService();
 
         public TibiaHighscoreTopPlayersWindow()
         {
@@ -20,8 +20,8 @@ namespace TibiaHighscoreApp
         {
             try
             {
-                var res = new HttpWebService(_urlGetCharacter + character);
-                HtmlNodeCollection temp = res.getNodes("//div[contains(@class, 'BoxContent')]/table[1]");
+                var res = _webService.SendRequest(_urlGetCharacter + character);
+                HtmlNodeCollection temp = res.DocumentNode.SelectNodes("//div[contains(@class, 'BoxContent')]/table[1]");
                 lblFormerNamesVar.Text = "None";
                 lblFormerWorldVar.Text = "None";
                 lblGuildVar.Text = "None";
@@ -86,9 +86,9 @@ namespace TibiaHighscoreApp
 
         public void LoadWorldHighscore(string world, string player)
         {
-            var res = new HttpWebService(_urlGetWorldHighscore + world);
+            var res = _webService.SendRequest(_urlGetWorldHighscore + world);
             this.Text = "Top Players - " + world;
-            var temp = res.getNodes("//table[contains(@class, 'TableContent')]");
+            var temp = res.DocumentNode.SelectNodes("//table[contains(@class, 'TableContent')]");
             foreach (var node in temp.Nodes())
             {
                 if (node.InnerHtml.Contains("https://secure.tibia.com/community/?subtopic=characters&name="))
@@ -105,9 +105,9 @@ namespace TibiaHighscoreApp
 
         public void LoadOtherCharacters(string player)
         {
-            var res = new HttpWebService(_urlGetCharacter + player);
+            var res = _webService.SendRequest(_urlGetCharacter + player);
             this.Text = "Character Info: " + player;
-            var temp = res.getNodes("//div[contains(@class, 'BoxContent')]/table[5]");
+            var temp = res.DocumentNode.SelectNodes("//div[contains(@class, 'BoxContent')]/table[5]");
             if (!(temp == null))
             {
                 foreach (var node in temp.Nodes())

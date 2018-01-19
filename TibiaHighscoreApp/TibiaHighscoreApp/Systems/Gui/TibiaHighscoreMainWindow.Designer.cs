@@ -86,7 +86,7 @@
             this.gbCharacterSearch.Controls.Add(this.btnPlayerSearch);
             this.gbCharacterSearch.Location = new System.Drawing.Point(0, 0);
             this.gbCharacterSearch.Name = "gbCharacterSearch";
-            this.gbCharacterSearch.Size = new System.Drawing.Size(254, 47);
+            this.gbCharacterSearch.Size = new System.Drawing.Size(255, 47);
             this.gbCharacterSearch.TabIndex = 5;
             this.gbCharacterSearch.TabStop = false;
             this.gbCharacterSearch.Text = "Character search";
@@ -138,9 +138,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(252, 373);
+            this.ClientSize = new System.Drawing.Size(254, 373);
             this.Controls.Add(this.gpTopPlayers);
             this.Controls.Add(this.gbCharacterSearch);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TibiaHighscoreMainWindow";
             this.Text = "Tibia Highscore";

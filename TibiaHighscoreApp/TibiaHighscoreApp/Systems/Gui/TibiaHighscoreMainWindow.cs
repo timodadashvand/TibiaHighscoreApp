@@ -1,6 +1,7 @@
 ﻿using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -14,6 +15,7 @@ namespace TibiaHighscoreApp
         private readonly string _urlPlayerSearch = "https://secure.tibia.com/community/?subtopic=characters&name=";
         private readonly string _gbDisplayAllTopPlayers = "All top players";
         private readonly string _gbDisplayWorldTopPlayers = "World highscore: ";
+        private HttpWebService _webService = new HttpWebService();
         private HtmlNodeCollection _worlds;
         private TibiaHighscoreTopPlayersWindow _topPlayersWindow;
 
@@ -27,8 +29,8 @@ namespace TibiaHighscoreApp
 
         private void LoadWorlds()
         {
-            var res = new HttpWebService(_urlWorlds);
-            _worlds = res.getNodes("//a[contains(@href, 'https://secure.tibia.com/community/?subtopic=worlds&world=')]");
+            var res = _webService.SendRequest(_urlWorlds);
+            _worlds = res.DocumentNode.SelectNodes("//a[contains(@href, 'https://secure.tibia.com/community/?subtopic=worlds&world=')]");
             foreach (var node in _worlds)
             {
                 cbWorlds.Items.Add(node.InnerText);
@@ -86,17 +88,27 @@ namespace TibiaHighscoreApp
             System.Threading.Tasks.Task.Run(() => MessageBox.Show(
                     "This might take a minute to load..",
                     "Information"));
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             var temp = new Dictionary<HtmlNode, HtmlNode>();
             foreach (var node in _worlds)
             {
                 while (true)
                 {
-                    var res = new HttpWebService(_urlTopPlayers + node.InnerText);
-                    temp.Add(node, res.getNode("//a[contains(@href, 'https://secure.tibia.com/community/?subtopic=characters&name=')]"));
+                    var res = _webService.SendRequest(_urlTopPlayers + node.InnerText);
+                    var item = new ListBoxItem
+                    {
+                        Content = node.InnerText + ": " + res.DocumentNode.SelectSingleNode("//a[contains(@href, 'https://secure.tibia.com/community/?subtopic=characters&name=')]").InnerText
+                    };
+                    lbMainWindow.Items.Add(item.Content);
                     break;
                 }
             }
-            LoadListBox(temp);
+            lbMainWindow.SelectedIndex = 0;
+            stopwatch.Stop();
+            System.Threading.Tasks.Task.Run(() => MessageBox.Show(
+                    "Elapsed time = " + stopwatch.Elapsed,
+                    "Time"));
         }
 
         private void LbMainWindow_MouseDoubleClick(object sender, EventArgs e)
@@ -116,27 +128,6 @@ namespace TibiaHighscoreApp
             }
         }
 
-        private void LoadListBox(Dictionary<HtmlNode, HtmlNode> list)
-        {
-            try
-            {
-                foreach (var node in list)
-                {
-                    var item = new ListBoxItem
-                    {
-                        Content = node.Key.InnerText + ": " + node.Value.InnerText
-                    };
-                    lbMainWindow.Items.Add(item.Content);
-                }
-                lbMainWindow.SelectedIndex = 0;
-            }
-            catch (NullReferenceException e)
-            {
-                //Log this with logger
-                Console.Out.WriteLine("NullReferenceException caught while loading listbox:\n" + e.Message);
-            }
-        }
-
         private void BtnPlayerSearch_Click(object sender, EventArgs e)
         {
             SearchPlayer(tbPlayerSearch.Text);
@@ -147,8 +138,8 @@ namespace TibiaHighscoreApp
             try
             {
                 CheckTopPlayersWindowDisposed();
-                var res = new HttpWebService(_urlPlayerSearch + player);
-                var boxContent = res.getNode("//div[contains(@class, 'BoxContent')]/table[1]");
+                var res = _webService.SendRequest(_urlPlayerSearch + player);
+                var boxContent = res.DocumentNode.SelectSingleNode("//div[contains(@class, 'BoxContent')]/table[1]");
                 string name = "";
                 if (boxContent.ChildNodes[1].InnerText.Contains("Could not find character"))
                 {
@@ -192,8 +183,8 @@ namespace TibiaHighscoreApp
             {
                 lbMainWindow.Items.Clear();
                 gbResult.Text = _gbDisplayWorldTopPlayers + cbWorlds.Text;
-                var res = new HttpWebService(_urlTopPlayers + cbWorlds.Text);
-                var temp = res.getNodes("//table[contains(@class, 'TableContent')]");
+                var res = _webService.SendRequest(_urlTopPlayers + cbWorlds.Text);
+                var temp = res.DocumentNode.SelectNodes("//table[contains(@class, 'TableContent')]");
                 foreach (var node in temp.Nodes())
                 {
                     if (node.InnerHtml.Contains("https://secure.tibia.com/community/?subtopic=characters&name="))

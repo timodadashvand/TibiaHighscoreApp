@@ -8,7 +8,7 @@ namespace TibiaHighscoreApp
     {
         private HtmlDocument _document;
 
-        public HttpWebService(string url)
+        public HtmlDocument SendRequest(string url)
         {
             _document = new HtmlDocument();
             HtmlNode.ElementsFlags["br"] = HtmlElementFlag.Empty;
@@ -35,17 +35,7 @@ namespace TibiaHighscoreApp
                     System.Console.Out.WriteLine("WebException caught while making HttpWebRequest:\n" + wex.Message);
                 }
             }
-        }
-
-        public HtmlNode getNode(string xpath)
-        {
-            return _document.DocumentNode.SelectSingleNode(xpath);
-        }
-
-        public HtmlNodeCollection getNodes(string xpath)
-        {
-            var nodes = _document.DocumentNode.SelectNodes(xpath);
-            return nodes;
+            return this._document;
         }
     }
 }
