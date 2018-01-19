@@ -385,6 +385,7 @@
             this.ClientSize = new System.Drawing.Size(516, 285);
             this.Controls.Add(this.gbOtherCharacters);
             this.Controls.Add(this.gbCharacterInfo);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TibiaHighscoreTopPlayersWindow";
             this.Text = "Top Players";

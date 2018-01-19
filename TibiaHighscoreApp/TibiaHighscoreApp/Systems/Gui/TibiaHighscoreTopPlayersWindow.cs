@@ -142,7 +142,7 @@ namespace TibiaHighscoreApp
             }
         }
 
-            private void TibiaHighscoreTopPlayers_Load(object sender, EventArgs e)
+        private void TibiaHighscoreTopPlayers_Load(object sender, EventArgs e)
         {
             // TODO: Stuff before window is showed.
         }
